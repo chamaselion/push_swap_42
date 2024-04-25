@@ -36,55 +36,61 @@ void ra(Stack* a)
     }
 
     a->nbr[0] = temp;
+        printf("ra\n");
 }
 
 void pb(Stack* a, Stack* b)
 {
-    if (a->top >= 0) {
+    if (a->top >= 0)
+    {
         b->nbr[++b->top] = a->nbr[a->top--];
     }
+    printf("PUSHED HERE\n");
 }
 
 void rra(Stack* a)
 {
     if (a->top < 0)
     {
-        return; // Stack is empty, nothing to rotate
+        return;
     }
 
-    int temp = a->nbr[0]; // Save the bottom element
+    int temp = a->nbr[0];
 
-    // Shift all elements one position down
+
     for (int i = 0; i < a->top; i++)
     {
         a->nbr[i] = a->nbr[i + 1];
     }
 
-    a->nbr[a->top] = temp; // Put the saved element at the top
+    a->nbr[a->top] = temp;
+    printf("rra\n");
 }
 
 void rrb(Stack* b)
 {
     if (b->top < 0)
     {
-        return; // Stack is empty, nothing to rotate
+        return;
     }
 
-    int temp = b->nbr[0]; // Save the bottom element
+    int temp = b->nbr[0];
 
-    // Shift all elements one position down
+
     for (int i = 0; i < b->top; i++)
     {
         b->nbr[i] = b->nbr[i + 1];
     }
 
-    b->nbr[b->top] = temp; // Put the saved element at the top
+    b->nbr[b->top] = temp;
+    printf("rrb\n");
 }
 
 void print_stack(Stack* a, char* name)
 {
     printf("%s: ", name);
-    for (int i = a->top; i >= 0; i--) {
+    for (int i = a->top; i >= 0; i--)
+    {
         printf("%d ", a->nbr[i]);
     }
     printf("\n");
@@ -93,8 +99,10 @@ void print_stack(Stack* a, char* name)
 int find_smallest(Stack* a)
 {
     int smallest = a->nbr[0];
-    for (int i = 1; i <= a->top; i++) {
-        if (a->nbr[i] < smallest) {
+    for (int i = 1; i <= a->top; i++)
+    {
+        if (a->nbr[i] < smallest)
+        {
             smallest = a->nbr[i];
         }
     }
@@ -104,15 +112,18 @@ int find_smallest(Stack* a)
 int find_biggest(Stack* a)
 {
     int biggest = a->nbr[0];
-    for (int i = 1; i <= a->top; i++) {
-        if (a->nbr[i] > biggest) {
+    for (int i = 1; i <= a->top; i++)
+    {
+        if (a->nbr[i] > biggest)
+        {
             biggest = a->nbr[i];
         }
     }
     return biggest;
 }
 
-int count_len(Stack* a) {
+int count_len(Stack* a)
+{
     return a->top + 1;
 }
 
@@ -131,6 +142,9 @@ void handle_a(Stack* a, Stack* b)
         c++;
         print_stack(a, "Stack A");
         print_stack(b, "Stack B");
+        printf("Counter %i\n", c);
+        printf("smallest %i\n", a->current_a_smallest);
+        printf("bigest %i\n", a->current_a_biggest);
         printf("\n");
     }
 }
@@ -166,8 +180,6 @@ void    handle_a_to_be(Stack* a, Stack* b, int c)
         if(c_clone == (a->full_len / 2))
                 ra(a);
     }
-    print_stack(a, "Stack A");
-    print_stack(b, "Stack B");
     printf("\n");
     let_it_be(a, b);
     return ;
@@ -195,4 +207,10 @@ void push_swap_beta(void)
     Stack a = {MAX_SIZE - 1, {12, 20, 13, 45, 31, 76, 1, 2, 99}, 1, 10, MAX_SIZE};
     Stack b = {-1, {}, 0, 0, 0};
     handle_a(&a, &b);
+}
+
+int main(void)
+{
+    push_swap_beta();
+
 }
