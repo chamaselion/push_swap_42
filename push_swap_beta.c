@@ -8,6 +8,7 @@ typedef struct {
     int current_a_smallest;
     int current_a_biggest;
     int full_len;
+    int full_move_count;
 } Stack;
 
 void ra(Stack* a);
@@ -36,7 +37,8 @@ void ra(Stack* a)
     }
 
     a->nbr[0] = temp;
-        printf("ra\n");
+    printf("ra\n");
+    a->full_move_count++;
 }
 
 void pb(Stack* a, Stack* b)
@@ -46,6 +48,7 @@ void pb(Stack* a, Stack* b)
         b->nbr[++b->top] = a->nbr[a->top--];
     }
     printf("PUSHED HERE\n");
+    a->full_move_count++;
 }
 
 void rra(Stack* a)
@@ -65,6 +68,7 @@ void rra(Stack* a)
 
     a->nbr[a->top] = temp;
     printf("rra\n");
+    a->full_move_count++;
 }
 
 void rrb(Stack* b)
@@ -84,6 +88,7 @@ void rrb(Stack* b)
 
     b->nbr[b->top] = temp;
     printf("rrb\n");
+    b->full_move_count++;
 }
 
 void print_stack(Stack* a, char* name)
@@ -130,59 +135,64 @@ int count_len(Stack* a)
 void handle_a(Stack* a, Stack* b)
 {
     int c;
+    int fm;
 
-    c = 0;
-
-    while(c <= a->top)
+    while(a->top != 0)
     {
         a->current_a_smallest = find_smallest(a);
         a->current_a_biggest = find_biggest(a);
         a->full_len = count_len(a);
+        c = 0;
+        while (a->nbr[a->top - c] != a->current_a_biggest && a->nbr[a->top - c] != a->current_a_smallest)
+        {
+            c++;
+        }
+        
         handle_a_to_be(a, b, c);
-        c++;
+
+        fm = a->full_move_count + b->full_move_count;
         print_stack(a, "Stack A");
         print_stack(b, "Stack B");
         printf("Counter %i\n", c);
+        printf("Full move count: %i\n", fm);
         printf("smallest %i\n", a->current_a_smallest);
         printf("bigest %i\n", a->current_a_biggest);
         printf("\n");
     }
+  
 }
 
 void    handle_a_to_be(Stack* a, Stack* b, int c)
 {
-    int c_clone;
     int move_count;
 
-    c_clone = c;
     move_count = 0;
 
-    if (a->nbr[a->top - c_clone] == a->current_a_smallest || a->nbr[a->top - c_clone] == a->current_a_biggest)
+    if (a->nbr[a->top - c] == a->current_a_smallest || a->nbr[a->top - c] == a->current_a_biggest)
     {
-        if(c_clone > (a->full_len / 2))
+        if(c > (a->full_len / 2))
         {
-            while (move_count < (c_clone))
+            while (move_count < (c))
             {
                 rra(a);
                 move_count++;
             }
             move_count = 0;
         }
-        if (c_clone < (a->full_len / 2) )
+        if (c < (a->full_len / 2) )
         {
-            while (move_count < (c_clone))
+            while (move_count < (c))
             {
                 ra(a);
                 move_count++;
             }
-            move_count = 0;
         }
-        if(c_clone == (a->full_len / 2))
+        else
                 ra(a);
     }
     printf("\n");
     let_it_be(a, b);
-    return ;
+
 }
 
 void    let_it_be(Stack* a, Stack* b)
