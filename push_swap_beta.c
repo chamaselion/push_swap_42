@@ -1,15 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#define MAX_SIZE 10
+
+#define MAX_SIZE 100
 
 typedef struct {
     int top;
     int nbr[MAX_SIZE];
     int current_a_smallest;
     int current_a_biggest;
+    int current_middle;
     int full_len;
     int full_move_count;
+    int* ar;
 } Stack;
+
 
 void ra(Stack* a);
 void pb(Stack* a, Stack* b);
@@ -21,6 +27,54 @@ void handle_a_to_be(Stack* a, Stack* b, int c);
 void let_it_be(Stack* a, Stack* b);
 void handle_a(Stack* a, Stack* b);
 void push_swap_beta(void);
+
+int* stack_to_array(Stack* a)
+{
+    int* array = malloc(sizeof(int) * (a->top + 1));
+    int i = 0;
+    while (i <= a->top)
+    {
+        array[i] = a->nbr[i];
+        i++;
+    }
+    return array;
+}
+
+void sort_array(int* array, int size)
+{
+    int i = 0;
+    while (i < size - 1)
+    {
+        int j = 0;
+        while (j < size - i - 1)
+        {
+            if (array[j] > array[j + 1])
+            {
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
+void print_array(int* array, int size)
+{
+    int i = 0;
+    printf("[");
+    while (i < size)
+    {
+        printf("%d", array[i]);
+        if (i < size - 1)
+        {
+            printf(", ");
+        }
+        i++;
+    }
+    printf("]\n");
+}
 
 void ra(Stack* a)
 {
@@ -65,6 +119,16 @@ void pb(Stack* a, Stack* b)
     if (a->top >= 0)
     {
         b->nbr[++b->top] = a->nbr[a->top--];
+    }
+    printf("PUSHED HERE\n");
+    a->full_move_count++;
+}
+
+void pa(Stack* a, Stack* b)
+{
+    if (b->top >= 0)
+    {
+        a->nbr[++a->top] = b->nbr[b->top--];
     }
     printf("PUSHED HERE\n");
     a->full_move_count++;
@@ -164,124 +228,15 @@ int count_len(Stack* a)
     return a->top + 1;
 }
 
-void handle_a(Stack* a, Stack* b)
-{
-    int c;
-    int fm;
-
-    while(a->top != -1)
-    {
-        a->current_a_smallest = find_smallest(a);
-        a->current_a_biggest = find_biggest(a);
-        a->full_len = count_len(a);
-        c = 0;
-        while (a->nbr[a->top - c] != a->current_a_biggest && a->nbr[a->top - c] != a->current_a_smallest)
-        {
-            c++;
-        }
-        
-        handle_a_to_be(a, b, c);
-
-        fm = a->full_move_count + b->full_move_count;
-        printf("\n");
-        print_stack(a, "Stack A at end");
-        print_stack(b, "Stack B at end");
-        printf("\n");
-       // printf("Counter %i\n", c);
-       // printf("Full move count: %i\n", fm);
-       // printf("smallest %i\n", a->current_a_smallest);
-       // printf("bigest %i\n", a->current_a_biggest);
-        printf("\n");
-    }
-  
-}
-
-void    handle_a_to_be(Stack* a, Stack* b, int c)
-{
-    int move_count;
-
-    move_count = 0;
-
-    if (a->nbr[a->top - c] == a->current_a_smallest || a->nbr[a->top - c] == a->current_a_biggest)
-    {
-        if(c > (a->full_len / 2))
-        {
-            while (move_count < (c))
-            {
-                rra(a);
-                move_count++;
-            }
-            move_count = 0;
-        }
-        if (c < (a->full_len / 2) )
-        {
-            while (move_count < (c))
-            {
-                ra(a);
-                move_count++;
-            }
-        }
-        else
-                ra(a);
-    }
-    print_stack(a, "Stack A in progress");
-    print_stack(b, "Stack B in progress");
-    printf("\n");
-    let_it_be(a, b);
-
-}
-
-void    let_it_be(Stack* a, Stack* b)
-{
-    int c;
-
-    c = 0;
-if (a->nbr[a->top] == a->current_a_smallest || a->nbr[a->top] == a->current_a_biggest )
-{
-    if (a->nbr[a->top] == a->current_a_biggest)
-    {
-        pb(a, b);
-    }
-    if (a->nbr[a->top] == a->current_a_smallest)
-    {
-        pb(a, b);
-        rb(b);
-    }
-       else if (a->top == 0)
-    {
-        pb(a, b);
-    }
-}
-return ;
-}
-
-void    sort_b(Stack* b)
-{
-    int final_smoll;
-
-    final_smoll = find_smallest_b(b);
-    while(b->nbr[b->top] != final_smoll)
-    {
-        rb(b);
-    }
-    print_stack(b, "Final b:");
-}
-
-#include <stdlib.h>
-#include <time.h>
-
 void fill_stack_a(Stack* a) {
     // Initialize random number generator
     srand(time(NULL));
 
-    // Generate a random number of elements
-    int num_elements = rand() % MAX_SIZE + 1; // Between 1 and MAX_SIZE
-
     // Reset the top of the stack
-    a->top = num_elements - 1;
+    a->top = MAX_SIZE - 1;
 
     // Fill the stack with random numbers
-    for (int i = 0; i < num_elements; i++) {
+    for (int i = 0; i < MAX_SIZE; i++) {
         int random_num = rand(); // Generate a random number
         a->nbr[i] = random_num; // Add it to the stack
     }
@@ -291,7 +246,7 @@ void fill_stack_a(Stack* a) {
     a->current_a_biggest = a->nbr[0];
 
     // Find the actual smallest and biggest values
-    for (int i = 1; i < num_elements; i++) {
+    for (int i = 1; i < MAX_SIZE; i++) {
         if (a->nbr[i] < a->current_a_smallest) {
             a->current_a_smallest = a->nbr[i];
         }
@@ -303,16 +258,29 @@ void fill_stack_a(Stack* a) {
 
 void push_swap_beta(void)
 {
-    int fm;
+    //int fm;
     Stack a = {MAX_SIZE - 1, {}, 1, 10, MAX_SIZE};
     Stack b = {-1, {}, 0, 0, 0};
 
     fill_stack_a(&a);
 
-    handle_a(&a, &b);
+    a.ar = stack_to_array(&a);
+    sort_array(a.ar, a.top + 1);
+
+
+
+   /*handle_a(&a, &b);
     sort_b(&b);
+    while (b.nbr[b.top] != -1)
+    {
+        pa(&a, &b);
+    }
+    
     fm = a.full_move_count + b.full_move_count;
     printf("Full move count: %i\n", fm);
+    print_stack(&a, "Final a:");
+    print_stack(&b, "Final b:");
+    */
 }
 
 int main(void)
