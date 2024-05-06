@@ -13,7 +13,10 @@ typedef struct {
     int full_len;
     int full_move_count;
     int* ar;
-    int current_mid;
+    int current_mid1;
+    int current_mid2;
+    int current_mid3;
+    int current_mid4;
 } Stack;
 
 
@@ -27,38 +30,6 @@ void handle_a_to_be(Stack* a, Stack* b, int c);
 void let_it_be(Stack* a, Stack* b);
 void handle_a(Stack* a, Stack* b);
 void push_swap_beta(void);
-
-int* stack_to_array(Stack* a)
-{
-    int* array = malloc(sizeof(int) * (a->top + 1));
-    int i = 0;
-    while (i <= a->top)
-    {
-        array[i] = a->nbr[i];
-        i++;
-    }
-    return array;
-}
-
-void sort_array(int* array, int size)
-{
-    int i = 0;
-    while (i < size - 1)
-    {
-        int j = 0;
-        while (j < size - i - 1)
-        {
-            if (array[j] > array[j + 1])
-            {
-                int temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
-            }
-            j++;
-        }
-        i++;
-    }
-}
 
 void sa(Stack *a)
 {
@@ -194,6 +165,75 @@ void rrb(Stack* b)
     b->full_move_count++;
 }
 
+int* stack_to_array(Stack* a)
+{
+    int* array = malloc(sizeof(int) * (a->top + 1));
+    int i = 0;
+    while (i <= a->top)
+    {
+        array[i] = a->nbr[i];
+        i++;
+    }
+    return array;
+}
+
+int check_phase(Stack* a, int cc)
+{
+    if(cc <= (a->top / 4))
+        return(a->current_mid1);
+    if(cc <= (a->top / 4) * 2)
+        return(a->current_mid2);
+    if(cc <= (a->top / 4) * 3)
+        return(a->current_mid3);
+    if(cc <= (a->top))
+        return(a->current_mid4);
+}
+
+void smart_rotate(Stack* a, Stack* b, int c)
+{
+    int move_count;
+
+    move_count = 0;
+
+        if(c >= (a->full_len / 2))
+        {
+            while (move_count < c)
+            {
+                rra(a);
+                move_count++;
+            }
+            move_count = 0;
+        }
+        if (c < (a->full_len / 2) )
+        {
+            while (move_count < c)
+            {
+                ra(a);
+                move_count++;
+            }
+    }
+}
+
+void sort_array(int* array, int size)
+{
+    int i = 0;
+    while (i < size - 1)
+    {
+        int j = 0;
+        while (j < size - i - 1)
+        {
+            if (array[j] > array[j + 1])
+            {
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
 void print_stack(Stack* a, char* name)
 {
     printf("%s: ", name);
@@ -325,91 +365,76 @@ int is_sorted(Stack *a)
     return 1; // return 1 (true) if all elements are in order
 }
 
-int find_current_mid_array(Stack* a)
+void find_key_array(Stack* a)
 {
-    int mid_value;
+    int chunk_size;
+    int chunk1_start;
+    int chunk2_start;
+    int chunk3_start;
+    int chunk4_start;
 
-    mid_value = (a->top + 1) / 2;
+    if(a->top < 4)
+        return ;
 
-    a->current_mid = a->ar[mid_value];
-    return(mid_value);
+    chunk_size = a->top / 4;
+    chunk1_start = 0;
+    chunk2_start = chunk_size;
+    chunk3_start = chunk_size * 2;
+    chunk4_start  = a->top;
+
+    a->current_mid1 = a->ar[chunk1_start];
+    a->current_mid2 = a->ar[chunk2_start];
+    a->current_mid3 = a->ar[chunk3_start];
+    a->current_mid4 = a->ar[chunk4_start];
 }
-
-int find_current_mid_array_b(Stack* b)
+void find_value_a(Stack* a, Stack* b)
 {
-    int mid_value;
+    int c;
+    int cc;
+    int fm;
+    int i;
+    int key_storage;
+    int l;
 
-    mid_value = (b->top + 1) / 2;
+    cc = 0;
+    l = a->top - 2;
+ printf("I work %s", "what s work");
+find_key_array(a);
+            printf("I work %s", "or not");
+while (cc != l)
+{
+    i = 0;
+            printf("I work %s", "in the future");
+    key_storage = check_phase(a, cc);
+    while(i != (a->top / 4))
+    {
+                printf("I work %s", "or at least try");
+        c = 0;
+        while (c <= a->top && a->nbr[a->top - c] > key_storage)
+        {
+            c++;
+        }
+        printf("I work %s", "correctly");
+        smart_rotate(a, b, c);
+        pb(a, b);
+        i++;
+        cc++;
 
-    
-    b->current_mid = b->ar[mid_value];
-    return(mid_value);
+    }
+  
+}
 }
 
 void push_swap_beta(void)
 {
     Stack a = {MAX_SIZE - 1, {}, 1, 10, MAX_SIZE};
     Stack b = {-1, {}, 0, 0, 0};
-    int c;
-    int j;
-    int current_mid_value;
 
     fill_stack_a(&a);
     print_stack(&a, "Stack a:\n");
     print_stack(&b, "Stack b:\n");
 
-while (!is_sorted(&a))
-{
-    while (a.top != 2)
-    {
-        a.ar = stack_to_array(&a);
-        sort_array(a.ar, a.top + 1);
-        current_mid_value = find_current_mid_array(&a);
-        c = 0;
-        while (c <= current_mid_value)
-        {
-            if (a.nbr[a.top] < a.current_mid)
-            {
-                pb(&a, &b);
-                c++;
-            }
-            else
-            {
-                break;
-            }
-        }
-        if (a.nbr[a.top] >= a.current_mid)
-        {
-            ra(&a);
-        }
-    }
-    mini_sort(&a);
-    
-    while (b.top != 2)
-    {
-        b.ar = stack_to_array(&b);
-        sort_array(b.ar, b.top + 1);
-        current_mid_value = find_current_mid_array_b(&b);
-        c = 0;
-        while (c <= current_mid_value)
-        {
-            if (b.nbr[b.top] > b.current_mid)
-            {
-                pa(&a, &b);
-                c++;
-            }
-            else
-            {
-                break;
-            }
-        }
-        if (b.nbr[b.top] <= b.current_mid)
-        {
-            rb(&b);
-        }
-    }
-    mini_sort(&b);
-}
+    find_value_a(&a, &b);
 
     print_stack(&a, "Stack a:\n");
     print_stack(&b, "Stack b:\n");
