@@ -10,10 +10,10 @@ typedef struct {
     int nbr[MAX_SIZE];
     int current_a_smallest;
     int current_a_biggest;
-    int current_middle;
     int full_len;
     int full_move_count;
     int* ar;
+    int current_mid;
 } Stack;
 
 
@@ -57,6 +57,26 @@ void sort_array(int* array, int size)
             j++;
         }
         i++;
+    }
+}
+
+void sa(Stack *a)
+{
+    if (a->top >= 1)
+    {
+        int temp = a->nbr[a->top];
+        a->nbr[a->top] = a->nbr[a->top - 1];
+        a->nbr[a->top - 1] = temp;
+    }
+}
+
+void sb(Stack *b)
+{
+    if (b->top >= 1)
+    {
+        int temp = b->nbr[b->top];
+        b->nbr[b->top] = b->nbr[b->top - 1];
+        b->nbr[b->top - 1] = temp;
     }
 }
 
@@ -187,12 +207,16 @@ void print_stack(Stack* a, char* name)
 int find_smallest(Stack* a)
 {
     int smallest = a->nbr[0];
-    for (int i = 1; i <= a->top; i++)
+    int i;
+
+    i = 1;
+    while (i <= a->top)
     {
         if (a->nbr[i] < smallest)
         {
             smallest = a->nbr[i];
         }
+        i++;
     }
     return smallest;
 }
@@ -200,12 +224,16 @@ int find_smallest(Stack* a)
 int find_smallest_b(Stack* b)
 {
     int smallest = b->nbr[0];
-    for (int i = 1; i <= b->top; i++)
+    int i;
+
+    i = 1;
+    while (i <= b->top)
     {
         if (b->nbr[i] < smallest)
         {
             smallest = b->nbr[i];
         }
+    i++;
     }
     return smallest;
 }
@@ -213,12 +241,16 @@ int find_smallest_b(Stack* b)
 int find_biggest(Stack* a)
 {
     int biggest = a->nbr[0];
-    for (int i = 1; i <= a->top; i++)
+    int i;
+
+    i = 1;
+    while (i <= a->top)
     {
         if (a->nbr[i] > biggest)
         {
             biggest = a->nbr[i];
         }
+        i++;
     }
     return biggest;
 }
@@ -228,7 +260,30 @@ int count_len(Stack* a)
     return a->top + 1;
 }
 
-void fill_stack_a(Stack* a) {
+int count_len_b(Stack* b)
+{
+    return b->top + 1;
+}
+
+void mini_sort(Stack *a)
+{
+    if (a->nbr[a->top] > a->nbr[a->top - 1])
+    {
+        sa(a);
+    }
+    if (a->nbr[a->top] > a->nbr[a->top - 2])
+    {
+        rra(a);
+        sa(a);
+    }
+    else if (a->nbr[a->top - 1] > a->nbr[a->top - 2])
+    {
+        rra(a);
+    }
+}
+
+void fill_stack_a(Stack* a)
+{
     // Initialize random number generator
     srand(time(NULL));
 
@@ -256,31 +311,108 @@ void fill_stack_a(Stack* a) {
     }
 }
 
+int is_sorted(Stack *a)
+{
+    int i = a->top;
+    while (i > 0)
+    {
+        if (a->nbr[i] < a->nbr[i - 1])
+        {
+            return 0; // return 0 (false) if a pair of elements is out of order
+        }
+        i--;
+    }
+    return 1; // return 1 (true) if all elements are in order
+}
+
+int find_current_mid_array(Stack* a)
+{
+    int mid_value;
+
+    mid_value = (a->top + 1) / 2;
+
+    a->current_mid = a->ar[mid_value];
+    return(mid_value);
+}
+
+int find_current_mid_array_b(Stack* b)
+{
+    int mid_value;
+
+    mid_value = (b->top + 1) / 2;
+
+    
+    b->current_mid = b->ar[mid_value];
+    return(mid_value);
+}
+
 void push_swap_beta(void)
 {
-    //int fm;
     Stack a = {MAX_SIZE - 1, {}, 1, 10, MAX_SIZE};
     Stack b = {-1, {}, 0, 0, 0};
+    int c;
+    int j;
+    int current_mid_value;
 
     fill_stack_a(&a);
+    print_stack(&a, "Stack a:\n");
+    print_stack(&b, "Stack b:\n");
 
-    a.ar = stack_to_array(&a);
-    sort_array(a.ar, a.top + 1);
-
-
-
-   /*handle_a(&a, &b);
-    sort_b(&b);
-    while (b.nbr[b.top] != -1)
+while (!is_sorted(&a))
+{
+    while (a.top != 2)
     {
-        pa(&a, &b);
+        a.ar = stack_to_array(&a);
+        sort_array(a.ar, a.top + 1);
+        current_mid_value = find_current_mid_array(&a);
+        c = 0;
+        while (c <= current_mid_value)
+        {
+            if (a.nbr[a.top] < a.current_mid)
+            {
+                pb(&a, &b);
+                c++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (a.nbr[a.top] >= a.current_mid)
+        {
+            ra(&a);
+        }
     }
+    mini_sort(&a);
     
-    fm = a.full_move_count + b.full_move_count;
-    printf("Full move count: %i\n", fm);
-    print_stack(&a, "Final a:");
-    print_stack(&b, "Final b:");
-    */
+    while (b.top != 2)
+    {
+        b.ar = stack_to_array(&b);
+        sort_array(b.ar, b.top + 1);
+        current_mid_value = find_current_mid_array_b(&b);
+        c = 0;
+        while (c <= current_mid_value)
+        {
+            if (b.nbr[b.top] > b.current_mid)
+            {
+                pa(&a, &b);
+                c++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (b.nbr[b.top] <= b.current_mid)
+        {
+            rb(&b);
+        }
+    }
+    mini_sort(&b);
+}
+
+    print_stack(&a, "Stack a:\n");
+    print_stack(&b, "Stack b:\n");
 }
 
 int main(void)
