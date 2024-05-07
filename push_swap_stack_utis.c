@@ -1,15 +1,17 @@
 #include "push_swap.h"
+
 void smart_rotate(Stack* a, Stack* b, int c)
 {
     int move_count;
 
     move_count = 0;
+
 if (a->full_len % 2 == 0)
 {
 
     if (c >= a->full_len / 2)
     {
-        while (move_count < ((a->top + 1) -c))
+        while (move_count < ((a->top + 1) - c))
         {
             rra(a);
             move_count++;
@@ -24,7 +26,7 @@ if (a->full_len % 2 == 0)
 }
 else
 {
-    if (c > (a->full_len + 1) / 2)
+    if (c > (a->full_len) / 2)
     {
         while (move_count < ((a->top + 1) - c))
         {
@@ -48,14 +50,11 @@ void smart_rotate_b(Stack* b, int c)
     int move_count;
 
     move_count = 0;
-
-    if (c == 1)
-            sb(b);
     
 if (b->full_len % 2 == 0)
 {
 
-    if (c >= b->full_len / 2)
+    if (c > b->full_len / 2)
     {
         while (move_count < ((b->top + 1) - c))
         {
@@ -74,7 +73,7 @@ if (b->full_len % 2 == 0)
 }
 else
 {
-    if (c > (b->full_len + 1) / 2)
+    if (c > (b->full_len) / 2)
     {
         while (move_count < ((b->top + 1) - c))
         {

@@ -50,5 +50,8 @@ void find_key_array(Stack* a);
 void find_value_a(Stack* a, Stack* b);
 void push_swap_beta(void);
 void smart_rotate_b(Stack* b, int c);
+void find_key_array(Stack* a);
+void find_value_a(Stack* a, Stack* b);
+void  sort_b_to_a (Stack* a, Stack* b);
 
 #endif

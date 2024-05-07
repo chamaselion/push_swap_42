@@ -8,6 +8,7 @@ void sa(Stack *a)
         a->nbr[a->top] = a->nbr[a->top - 1];
         a->nbr[a->top - 1] = temp;
     }
+    a->full_move_count++;
 }
 
 void sb(Stack *b)
@@ -18,6 +19,7 @@ void sb(Stack *b)
         b->nbr[b->top] = b->nbr[b->top - 1];
         b->nbr[b->top - 1] = temp;
     }
+    b->full_move_count++;
 }
 
 void ra(Stack* a)
