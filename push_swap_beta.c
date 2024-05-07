@@ -30,13 +30,13 @@ int* stack_to_array(Stack* a)
 
 int check_phase(Stack* a, int cc)
 {
-    if(cc <= (a->top / 4))
+    if(cc <= 1)
         return(a->current_mid1);
-    if(cc <= (a->top / 4) * 2)
+    if(cc <= 2)
         return(a->current_mid2);
-    if(cc <= (a->top / 4) * 3)
+    if(cc <= 3)
         return(a->current_mid3);
-    if(cc <= (a->top))
+    if(cc <= 4)
         return(a->current_mid4);
 }
 
@@ -77,6 +77,14 @@ void mini_sort(Stack *a)
     }
 }
 
+void constfil_a(Stack* a)
+{
+    int numbers[100] = {34, 67, 55, 33, 12, 98, 99, 16, 11, 8, 20, 14, 45, 82, 22, 89, 15, 78, 96, 25, 66, 51, 79, 81, 58, 3, 46, 85, 69, 64, 87, 68, 90, 83, 57, 71, 60, 39, 73, 61, 2, 36, 59, 9, 6, 7, 49, 35, 38, 13, 28, 70, 1, 44, 53, 76, 47, 17, 88, 50, 4, 18, 23, 65, 80, 56, 29, 74, 21, 19, 5, 92, 31, 10, 54, 26, 86, 32, 62, 84, 41, 97, 30, 72, 27, 95, 40, 75, 42, 77, 94, 93, 91, 24, 48, 37, 52, 43, 63, 100};
+    for (int i = 0; i < 100; i++) {
+        a->nbr[i] = numbers[i];
+    }
+}
+
 void fill_stack_a(Stack* a)
 {
     // Initialize random number generator
@@ -92,16 +100,16 @@ void fill_stack_a(Stack* a)
     }
 
     // Reset the current smallest and biggest values
-    a->current_a_smallest = a->nbr[0];
-    a->current_a_biggest = a->nbr[0];
+    a->current_smallest = a->nbr[0];
+    a->current_biggest = a->nbr[0];
 
     // Find the actual smallest and biggest values
     for (int i = 1; i < MAX_SIZE; i++) {
-        if (a->nbr[i] < a->current_a_smallest) {
-            a->current_a_smallest = a->nbr[i];
+        if (a->nbr[i] < a->current_smallest) {
+            a->current_smallest = a->nbr[i];
         }
-        if (a->nbr[i] > a->current_a_biggest) {
-            a->current_a_biggest = a->nbr[i];
+        if (a->nbr[i] > a->current_biggest) {
+            a->current_biggest = a->nbr[i];
         }
     }
 }
@@ -122,87 +130,109 @@ int is_sorted(Stack *a)
 
 void find_key_array(Stack* a)
 {
-    printf("%d\n", 1);
     int chunk_size;
-    int chunk1_start;
-    int chunk2_start;
-    int chunk3_start;
-    int chunk4_start;
+    int chunk1_end;
+    int chunk2_end;
+    int chunk3_end;
+    int chunk4_end;
      
-    if(a->top < 4)
-        return ;
-    chunk_size = a->top / 4;
-    chunk1_start = 0;
-    chunk2_start = chunk_size;
-    chunk3_start = chunk_size * 2;
-    chunk4_start  = a->top;
-    printf("%i, %i, %i, %i\n", chunk1_start, chunk2_start, chunk3_start, chunk4_start);
-    a->current_mid1 = a->ar[chunk1_start];
-    a->current_mid2 = a->ar[chunk2_start];
-    a->current_mid3 = a->ar[chunk3_start];
-    a->current_mid4 = a->ar[chunk4_start];
-    printf("%i, %i, %i, %i", a->current_mid1, a->current_mid2, a->current_mid3, a->current_mid4);
+    chunk_size = (a->top + 1) / 4;
+    chunk1_end = chunk_size;
+    chunk2_end = chunk_size * 2;
+    chunk3_end = chunk_size * 3;
+    chunk4_end  = a->top;
+    a->current_mid1 = a->ar[chunk1_end];
+    a->current_mid2 = a->ar[chunk2_end];
+    a->current_mid3 = a->ar[chunk3_end];
+    a->current_mid4 = a->ar[chunk4_end];
+
 }
+
 void find_value_a(Stack* a, Stack* b)
 {
     int c;
     int cc;
-    int fm;
     int i;
     int key_storage;
     int l;
 
-    cc = 0;
-    l = a->top - 2;
- printf("I work %s", "what s work");
+    cc = 1;
+    l = a->top + 1;
 find_key_array(a);
-            printf("I work %s", "or not");
-while (cc != l)
+while (cc <= 4)
 {
     i = 0;
-            printf("I work %s", "in the future");
     key_storage = check_phase(a, cc);
-    while(i != (a->top / 4))
+    while(i <= (l / 4) && a->top != -1)
     {
-                printf("I work %s", "or at least try");
         c = 0;
-        while (c <= a->top && a->nbr[a->top - c] > key_storage)
+        a->full_len = a->top + 1;
+        printf("Key:%i:%i\n", cc, key_storage);
+        while (a->nbr[a->top - c] > key_storage && c != a->top - 1)
         {
             c++;
         }
-        printf("I work %s", "correctly");
+        printf("nbr: %i\natop:%i\nc%i\n", a->nbr[a->top - c], a->top, c);
         smart_rotate(a, b, c);
         pb(a, b);
         i++;
-        cc++;
-
     }
-  
+cc++;
 }
 }
+
+void  sort_b_to_a (Stack* a, Stack* b)
+{
+    int c;
+    while (b->top != -1)
+    {    
+        find_biggest_b(b);
+        b->full_len = b->top + 1;
+        c = 0;
+        while (b->nbr[b->top - c] < b->current_biggest && c != b->top)
+        {
+            c++;
+        }
+        printf("found nbr: %i\n", b->nbr[b->top - c]);
+        smart_rotate_b(b, c);
+        printf("Current biggest:%i\nProcessed nbr: %i\n", b->current_biggest, b->nbr[b->top]);
+        pa(a, b);
+        //nsmart_reverse_rotate(b, c);
+    }
+
+}
+
+
 
 void push_swap_beta(void)
 {
     Stack a = {MAX_SIZE - 1, {}, 1, 10, MAX_SIZE};
     Stack b = {-1, {}, 0, 0, 0};
+    int fm;
 
-    fill_stack_a(&a);
-   
+   fill_stack_a(&a);
+   //constfil_a(&a);
+
       print_stack(&a, "Stack a:\n");
    
       print_stack(&b, "Stack b:\n");
-    stack_to_array(&a);
-      printf("PLS %s\n", "work");
-      print_array(a.ar, a.top - 1);
+   a.ar = stack_to_array(&a);
+      print_array(a.ar, a.top + 1);
    
-    sort_array(a.ar, a.top - 1);
-   
-      print_array(a.ar, a.top - 1);
+    sort_array(a.ar, a.top + 1);
+      print_array(a.ar, a.top + 1);
 
     find_value_a(&a, &b);
 
     print_stack(&a, "Stack a:\n");
     print_stack(&b, "Stack b:\n");
+
+    sort_b_to_a(&a, &b);
+
+    print_stack(&a, "Stack a:\n");
+    print_stack(&b, "Stack b:\n");
+    fm = a.full_move_count + b.full_move_count;
+    printf("Moves:%i", fm);
 }
 
 int main(void)
