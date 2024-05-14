@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void smart_rotate(Stack* a, Stack* b, int c)
+void smart_rotate(Stack* a, int c)
 {
     int move_count;
 
