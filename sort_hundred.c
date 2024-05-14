@@ -1,4 +1,16 @@
 #include "push_swap.h"
+int check_phase_hundred(Stack* a, int cc)
+{
+    if(cc <= 1)
+        return(a->current_mid1);
+    if(cc <= 2)
+        return(a->current_mid2);
+    if(cc <= 3)
+        return(a->current_mid3);
+    if(cc <= 4)
+        return(a->current_mid4);
+    return (0);
+}
 
 void find_key_array(Stack* a)
 {
@@ -20,7 +32,7 @@ void find_key_array(Stack* a)
 
 }
 
-void find_value_a(Stack* a, Stack* b)
+void do_hundred(Stack* a, Stack* b)
 {
     int c;
     int cc;
@@ -34,7 +46,7 @@ find_key_array(a);
 while (cc <= 4)
 {
     i = 0;
-    key_storage = check_phase(a, cc);
+    key_storage = check_phase_hundred(a, cc);
     while(i <= (l / 4) && a->top != -1)
     {
         c = 0;
@@ -45,7 +57,7 @@ while (cc <= 4)
             c++;
         }
         printf("nbr: %i\natop:%i\nc%i\n", a->nbr[a->top - c], a->top, c);
-        smart_rotate(a, b, c);
+        smart_rotate(a, c);
         pb(a, b);
         i++;
     }
