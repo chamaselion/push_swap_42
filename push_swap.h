@@ -5,11 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define MAX_SIZE 100
+#include <unistd.h>
 
 typedef struct {
     int top;
-    int nbr[MAX_SIZE];
+    int *nbr;
     int current_smallest;
     int current_biggest;
     int full_len;
@@ -19,6 +19,10 @@ typedef struct {
     int current_mid2;
     int current_mid3;
     int current_mid4;
+    int current_mid5;
+    int current_mid6;
+    int current_mid7;
+    int current_mid8;
 } Stack;
 
 
@@ -33,7 +37,7 @@ void rrb(Stack* b);
 void print_array(int* array, int size);
 int* stack_to_array(Stack* a);
 int check_phase(Stack* a, int cc);
-void smart_rotate(Stack* a, Stack* b, int c);
+void smart_rotate(Stack* a, int c);
 void  nsmart_reverse_rotate(Stack* b, int c);
 void sort_array(int* array, int size);
 void print_stack(Stack* a, char* name);
@@ -47,11 +51,17 @@ void mini_sort(Stack *a);
 void fill_stack_a(Stack* a);
 int is_sorted(Stack *a);
 void find_key_array(Stack* a);
-void find_value_a(Stack* a, Stack* b);
-void push_swap_beta(void);
+void push_swap(Stack* a, Stack* b);
 void smart_rotate_b(Stack* b, int c);
 void find_key_array(Stack* a);
 void find_value_a(Stack* a, Stack* b);
 void  sort_b_to_a (Stack* a, Stack* b);
+void do_mhundred(Stack* a, Stack* b);
+void find_key_array_mhundred(Stack* a);
+int check_phase_mhundred(Stack* a, int cc);
+void do_hundred(Stack* a, Stack* b);
+void put_sort(Stack* a, Stack* b);
+void put_sort_a_to_be(Stack* a, Stack* b, int c);
+void    let_it_be(Stack* a, Stack* b);
 
 #endif
