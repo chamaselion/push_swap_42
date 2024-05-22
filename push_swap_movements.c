@@ -96,7 +96,7 @@ void rra(Stack* a)
     }
 
     a->nbr[a->top] = temp;
-   // printf("rra\n");
+    printf("rra\n");
     a->full_move_count++;
 }
 

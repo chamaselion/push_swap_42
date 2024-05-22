@@ -1,34 +1,24 @@
 #include "push_swap.h"
 int check_phase_hundred(Stack* a, int cc)
 {
-    if(cc <= 1)
-        return(a->current_mid1);
-    if(cc <= 2)
-        return(a->current_mid2);
-    if(cc <= 3)
-        return(a->current_mid3);
-    if(cc <= 4)
-        return(a->current_mid4);
-    return (0);
+    if (cc <= a->no_chunks)
+        return a->current_mid[cc - 1];
+    return 0;
 }
 
 void find_key_array(Stack* a)
 {
-    int chunk_size;
-    int chunk1_end;
-    int chunk2_end;
-    int chunk3_end;
-    int chunk4_end;
-     
-    chunk_size = (a->top + 1) / 4;
-    chunk1_end = chunk_size;
-    chunk2_end = chunk_size * 2;
-    chunk3_end = chunk_size * 3;
-    chunk4_end  = a->top;
-    a->current_mid1 = a->ar[chunk1_end];
-    a->current_mid2 = a->ar[chunk2_end];
-    a->current_mid3 = a->ar[chunk3_end];
-    a->current_mid4 = a->ar[chunk4_end];
+    int chunk_size = (a->top + 1) / a->no_chunks;
+
+	int	i;
+
+	i = 0;
+
+    while (i < a->no_chunks)
+    {
+        a->current_mid[i] = a->ar[chunk_size * (i + 1)];
+		i++;
+    }
 
 }
 
@@ -43,11 +33,11 @@ void do_hundred(Stack* a, Stack* b)
     cc = 1;
     l = a->top + 1;
 find_key_array(a);
-while (cc <= 4)
+while (cc <= a->no_chunks)
 {
     i = 0;
     key_storage = check_phase_hundred(a, cc);
-    while(i <= (l / 4) && a->top != -1)
+    while(i <= (l / a->no_chunks) && a->top != -1)
     {
         c = 0;
         a->full_len = a->top + 1;
