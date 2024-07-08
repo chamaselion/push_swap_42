@@ -33,20 +33,18 @@ void do_hundred(Stack* a, Stack* b)
     cc = 1;
     l = a->top + 1;
 find_key_array(a);
-while (cc <= a->no_chunks)
+while (cc <= (a->no_chunks - a->ind))
 {
     i = 0;
     key_storage = check_phase_hundred(a, cc);
-    while(i <= (l / a->no_chunks) && a->top != -1)
+    while(i < (l / a->no_chunks) && a->top != -1)
     {
         c = 0;
         a->full_len = a->top + 1;
-        printf("Key:%i:%i\n", cc, key_storage);
         while (a->nbr[a->top - c] > key_storage && c != a->top - 1)
-        {
+        {	
             c++;
         }
-        printf("nbr: %i\natop:%i\nc%i\n", a->nbr[a->top - c], a->top, c);
         smart_rotate(a, c);
         pb(a, b);
         i++;
@@ -67,9 +65,7 @@ void  sort_b_to_a (Stack* a, Stack* b)
         {
             c++;
         }
-        printf("found nbr: %i\n", b->nbr[b->top - c]);
         smart_rotate_b(b, c);
-        printf("Current biggest:%i\nProcessed nbr: %i\n", b->current_biggest, b->nbr[b->top]);
         pa(a, b);
     }
 
