@@ -12,6 +12,7 @@ void fill_stack(Stack *a, int argc, char **argv)
      a->top = argc - 2;
 }
 
+
 void print_array(int* array, int size)
 {
     int i = 0;
@@ -28,33 +29,29 @@ void print_array(int* array, int size)
     printf("]\n");
 }
 
-void mini_sort_3(Stack *a)
-{   
-    if (a->nbr[a->top] > a->nbr[a->top - 1] && a->nbr[a->top - 2] > a->nbr[a->top - 1])
+void mini_sort_3(Stack* a)
+{
+    if (a->nbr[1] > a->nbr[2] && a->nbr[2] > a->nbr[0])
     {
-        sa(a);
-    }
-
-    if (a->nbr[a->top] > a->nbr[a->top - 1] && a->nbr[a->top - 1] > a->nbr[a->top - 2])
-    {
+        // {0 2 1} : sa rra
         sa(a);
         rra(a);
     }
-    if (a->nbr[a->top] > a->nbr[a->top - 1] && a->nbr[a->top] > a->nbr[a->top - 2])
+    else if (a->nbr[1] > a->nbr[0] && a->nbr[0] > a->nbr[2])
     {
-        ra(a);
-    }
-
-    if (a->nbr[a->top] < a->nbr[a->top - 1] && a->nbr[a->top - 1] < a->nbr[a->top - 2])
-    {
+        // {1 0 2} : sa
         sa(a);
-        ra(a);
     }
-        if (a->nbr[a->top] < a->nbr[a->top - 1] && a->nbr[a->top] > a->nbr[a->top - 2])
+    else if (a->nbr[2] > a->nbr[0] && a->nbr[0] > a->nbr[1])
     {
+        // {2 1 0} : ra
         ra(a);
     }
-    
+    else if (a->nbr[2] > a->nbr[1] && a->nbr[1] > a->nbr[0])
+    {
+        // {2 0 1} : rra
+        rra(a);
+    }
 }
 
 int* stack_to_array(Stack* a)
@@ -103,33 +100,36 @@ int is_sorted(Stack *a)
     return 1; // return 1 (true) if all elements are in order
 }
 
+void	handle_remaining_stack(Stack* a, Stack *b)
+{
+	int	c;
+
+	while (a->top != 0)
+	{
+		c = 0;
+		a->current_smallest = find_smallest(a);
+		while (a->nbr[a->top - c] != a->current_smallest)
+		{
+			c++;
+		}
+		smart_rotate(a, c);
+		pb(a, b);
+	}
+	//mini_sort_3(a);
+}
 
 void push_swap(Stack* a, Stack* b)
 {
-    int fm;
-	//int	wtf;
-
-    print_stack(a, "Stack a:\n");
-    print_stack(b, "Stack b:\n");
 
     a->ar = stack_to_array(a);
-    print_array(a->ar, a->top + 1);
 
     sort_array(a->ar, a->top + 1);
-    print_array(a->ar, a->top + 1);
-	do_hundred(a, b);
-    print_stack(a, "Stack a:\n");
-    print_stack(b, "Stack b:\n");
 
+	do_hundred(a, b);
+	handle_remaining_stack(a, b);
     sort_b_to_a(a, b);
 
-    print_stack(a, "Stack a:\n");
-    print_stack(b, "Stack b:\n");
-
-    fm = a->full_move_count + b->full_move_count;
-    int issort = is_sorted(a);
     free(a->ar);
-    printf("Moves:%i\nSort: %i\nChunks:%i\n", fm, issort, a->no_chunks);
 }
 
 void write_error(char *str) {
@@ -188,17 +188,84 @@ void check_pre_stack(int argc, char **argv) {
     free(check_array);
 }
 
+int find_max_element(int arr[], int n)
+{
+    int max = arr[0];
+    for (int i = 1; i < n; i++)
+        if (arr[i] > max)
+            max = arr[i];
+    return max;
+}
+
+int longest_increasing_subsequence(int arr[], int n)
+{
+    int lis[n];
+    lis[0] = 1;
+
+    for (int i = 1; i < n; i++)
+    {
+        lis[i] = 1;
+        for (int j = 0; j < i; j++)
+            if (arr[i] > arr[j] && lis[i] < lis[j] + 1)
+                lis[i] = lis[j] + 1;
+    }
+
+    return find_max_element(lis, n);
+}
+
+void estimate_optimal_chunks(Stack *a)
+{
+    // Estimate the sortedness of the data
+    int lis_length = longest_increasing_subsequence(a->nbr, a->top);
+    int threshold = 0.2 * a->top;
+
+    if (lis_length > threshold && a->top <= 99)
+    {
+        a->no_chunks = 5;
+        a->ind = 1;
+    }
+    else if (lis_length <= threshold && a->top <= 99)
+    {
+        a->no_chunks = 4;
+        a->ind = 1;
+    }
+    else if (lis_length > threshold && a->top > 99)
+    {
+        a->no_chunks = 10;
+        a->ind = 0;
+    }
+    else if (lis_length <= threshold && a->top > 99)
+    {
+        a->no_chunks = 10;
+        a->ind = 0;
+    }
+}
+
+void	set_chunks(Stack* a)
+{
+	if (a->top <= 99)
+	{
+		a->no_chunks = 4;
+		a->ind = 1;
+	}
+	if (a->top > 99)
+	{
+		a->ind = 0;
+		a->no_chunks = 10;
+	}
+}
+
 int main(int argc, char **argv)
 {
     if (argc == 1)
     {
         return 0; // Exit the program if no arguments were provided
     }
-Stack a = {argc - 2, malloc((argc - 1) * sizeof(int)), -1, -1, argc - 1, 0, malloc((argc - 1) * sizeof(int)), malloc((argc - 1) * sizeof(int)), 1};
-Stack b = {-1, malloc((argc - 1) * sizeof(int)), -1, -1, 0, 0, malloc((argc - 1) * sizeof(int)), malloc((argc - 1) * sizeof(int)), 0};
+Stack a = {argc - 2, malloc((argc - 1) * sizeof(int)), -1, -1, argc - 1, 0, malloc((argc - 1) * sizeof(int)), malloc((argc - 1) * sizeof(int)), 1, 0};
+Stack b = {-1, malloc((argc - 1) * sizeof(int)), -1, -1, 0, 0, malloc((argc - 1) * sizeof(int)), malloc((argc - 1) * sizeof(int)), 0, 0};
 
     check_pre_stack(argc, argv);
     fill_stack(&a, argc, argv);
-	a.no_chunks = 10;
+	estimate_optimal_chunks(&a);
     push_swap(&a, &b);
 }
