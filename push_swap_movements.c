@@ -66,7 +66,7 @@ void pb(Stack* a, Stack* b)
     {
         b->nbr[++b->top] = a->nbr[a->top--];
     }
-    printf("PUSHED HERE\n");
+    printf("pb\n");
     a->full_move_count++;
 }
 
@@ -76,7 +76,7 @@ void pa(Stack* a, Stack* b)
     {
         a->nbr[++a->top] = b->nbr[b->top--];
     }
-    printf("PUSHED HERE\n");
+    printf("pa\n");
     a->full_move_count++;
 }
 
