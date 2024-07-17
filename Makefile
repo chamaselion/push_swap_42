@@ -1,7 +1,7 @@
 NAME=push_swap
-CC=gcc
+CC=cc
 CFLAGS=-Wall -Wextra -Werror
-SRC=push_swap_beta.c push_swap_movements.c push_swap_stack_utis.c sort_hundred.c sort_more_than_hundred.c
+SRC=push_swap_beta.c push_swap_chunk_stuff.c push_swap_error_stuff.c push_swap_error_stuff2.c push_swap_movements.c push_swap_movements2.c push_swap_stack_stuff.c push_swap_stack_stuff2.c push_swap_stack_utis.c sort_hundred.c push_swap_stack_utis2.c push_swap_stack_utis3.c
 OBJ=$(SRC:.c=.o)
 
 all: $(NAME)
@@ -13,10 +13,10 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@del -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	@del -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
