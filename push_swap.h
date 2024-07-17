@@ -1,76 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/08 14:15:25 by bszikora          #+#    #+#             */
+/*   Updated: 2024/07/17 15:41:58 by bszikora         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-#define PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <time.h>
+# include <unistd.h>
+# include <ctype.h>
 
-typedef struct {
-    int top;
-    int *nbr;
-    int current_smallest;
-    int current_biggest;
-    int full_len;
-    int full_move_count;
-    int* ar;
-    int* current_mid;
-	int no_chunks;
+typedef struct Stack
+{
+	int	top;
+	int	*nbr;
+	int	current_smallest;
+	int	current_biggest;
+	int	full_len;
+	int	full_move_count;
+	int	*ar;
+	int	*current_mid;
+	int	no_chunks;
 	int	ind;
-} Stack;
+}		t_Stack;
 
+/* push_swap_movements */
+void	sa(t_Stack *a);
+void	sb(t_Stack *b);
+void	ra(t_Stack *a);
+void	rb(t_Stack *b);
+void	pb(t_Stack *a, t_Stack *b);
+void	pa(t_Stack *a, t_Stack *b);
+void	rra(t_Stack *a);
+void	rrb(t_Stack *b);
 
-void sa(Stack *a);
-void sb(Stack *b);
-void ra(Stack* a);
-void rb(Stack* b);
-void pb(Stack* a, Stack* b);
-void pa(Stack* a, Stack* b);
-void rra(Stack* a);
-void rrb(Stack* b);
-void print_array(int* array, int size);
-int* stack_to_array(Stack* a);
-int check_phase(Stack* a, int cc);
-void smart_rotate(Stack* a, int c);
-void sort_array(int* array, int size);
-void print_stack(Stack* a, char* name);
-int find_smallest(Stack* a);
-int find_smallest_b(Stack* b);
-int find_biggest(Stack* a);
-void find_biggest_b(Stack* b);
-int count_len(Stack* a);
-int count_len_b(Stack* b);
-void mini_sort(Stack *a);
-void fill_stack_a(Stack* a);
-int is_sorted(Stack *a);
-void find_key_array(Stack* a);
-void push_swap(Stack* a, Stack* b);
-void smart_rotate_b(Stack* b, int c);
-void find_key_array(Stack* a);
-void find_value_a(Stack* a, Stack* b);
-void  sort_b_to_a (Stack* a, Stack* b);
-void do_mhundred(Stack* a, Stack* b);
-void find_key_array_mhundred(Stack* a);
-int check_phase_mhundred(Stack* a, int cc);
-void do_hundred(Stack* a, Stack* b);
-void put_sort(Stack* a, Stack* b);
-void put_sort_a_to_be(Stack* a, Stack* b, int c);
-void let_it_be(Stack* a, Stack* b);
-int check_phase_hundred_p(Stack* phantom_a, int cc);
-void do_hundred_p(Stack* phantom_a, Stack* phantom_b);
-void sort_b_to_a_p (Stack* phantom_a, Stack* phantom_b);
-void find_key_array_p(Stack* phantom_a);
-void sa_p(Stack *phantom_a);
-void sb_p(Stack *phantom_b);
-void ra_p(Stack* phantom_a);
-void rra_p(Stack* phantom_a);
-void rrb_p(Stack* phantom_b);
-void pb_p(Stack* phantom_a, Stack* phantom_b);
-void pa_p(Stack* phantom_a, Stack* phantom_b);
-void rb_p(Stack* phantom_b);
-int find_optimal_chunks(Stack* a, Stack* b);
-void smart_rotate_b_p(Stack* phantom_b, int c);
-void find_biggest_b_p(Stack* phantom_b);
+/* push_swap_error_stuff */
+void	write_error(char *str);
+int		is_digit(char c);
+int		is_integer(char *str);
+int		is_value_duplicate(int *check_array, int val, int limit);
+void	check_pre_stack(int argc, char **argv);
+void	check_pre_stack_single(int argc, char *argv);
+
+/* push_swap_chunk_stuff */
+int		find_max_element(int arr[], int n);
+int		longest_increasing_subsequence(int arr[], int n);
+void	estimate_optimal_chunks(t_Stack *a);
+void	set_chunks(t_Stack *a);
+
+/* push_swap_beta */
+void	mini_sort_3(t_Stack *a);
+int		is_sorted(t_Stack *a);
+void	handle_remaining_stack(t_Stack *a, t_Stack *b);
+void	push_swap(t_Stack *a, t_Stack *b);
+int		main(int argc, char **argv);
+
+/* push_swap_stack_stuff */
+void	fill_stack(t_Stack *a, int argc, char **argv);
+void	print_array(int *array, int size);
+int		*stack_to_array(t_Stack *a);
+void	sort_array(int *array, int size);
+void	initialize_stack_a(t_Stack *a, int argc);
+void	initialize_stack_b(t_Stack *b, int argc);
+void	smart_rotate(t_Stack *a, int c);
+void	smart_rotate_b(t_Stack *b, int c);
+void	print_stack(t_Stack *a, char *name);
+int		find_smallest_b(t_Stack *b);
+int		find_biggest(t_Stack *a);
+void	find_biggest_b(t_Stack *b);
+int		find_smallest(t_Stack *a);
+int		find_smallest_b(t_Stack *b);
+int		find_biggest(t_Stack *a);
+void	find_biggest_b(t_Stack *b);
+void	rotate_b_down(t_Stack *b, int c);
+void	rotate_b_up(t_Stack *b, int c);
+int		count_integers_in_string(char *str);
+void	fill_stack_from_string(t_Stack *a, char *input);
+
+/* push_swap_sort */
+int		check_phase_hundred(t_Stack *a, int cc);
+void	find_key_array(t_Stack *a);
+void	do_hundred(t_Stack *a, t_Stack *b);
+void	sort_b_to_a(t_Stack *a, t_Stack *b);
+
+/* push_swap_utis */
 
 #endif
