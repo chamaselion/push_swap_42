@@ -50,7 +50,8 @@ int		is_digit(char c);
 int		is_integer(char *str);
 int		is_value_duplicate(int *check_array, int val, int limit);
 void	check_pre_stack(int argc, char **argv);
-void	check_pre_stack_single(int argc, char *argv);
+void	check_pre_stack_single(char *argv);
+int		is_it_duplicate_tho(int *array, int limit);
 
 /* push_swap_chunk_stuff */
 int		find_max_element(int arr[], int n);
@@ -85,7 +86,8 @@ void	find_biggest_b(t_Stack *b);
 void	rotate_b_down(t_Stack *b, int c);
 void	rotate_b_up(t_Stack *b, int c);
 int		count_integers_in_string(char *str);
-void	fill_stack_from_string(t_Stack *a, char *input);
+void	fill_stack_from_str(t_Stack *a, char *input);
+void	reverse_int_arr(t_Stack *a, int limit);
 
 /* push_swap_sort */
 int		check_phase_hundred(t_Stack *a, int cc);
