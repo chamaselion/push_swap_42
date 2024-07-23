@@ -12,6 +12,38 @@
 
 #include "push_swap.h"
 
+void	reverse_int_arr(t_Stack *a, int limit)
+{
+	int strg;
+	int c;
+
+	c = 0;
+
+	while (c < limit / 2)
+	{
+		strg = a->nbr[c];
+		a->nbr[c] = a->nbr[limit - c];
+		a->nbr[limit - c] = strg;
+		c++;
+	}
+}
+
+void fill_stack_from_str(t_Stack *a, char *str)
+{
+    char *token;
+    int i = 0;
+
+    token = strtok(str, " ");
+    while (token != NULL)
+    {
+        a->nbr[i] = atoi(token);
+        i++;
+        token = strtok(NULL, " ");
+    }
+    a->top = i - 1;
+	free(token);
+}
+
 void	fill_stack(t_Stack *a, int argc, char **argv)
 {
 	int	i;
@@ -32,30 +64,6 @@ void	fill_stack(t_Stack *a, int argc, char **argv)
 		a->nbr[0] = atoi(argv[1]);
 		a->top = strlen(argv[1]);
 	}
-}
-
-void	fill_stack_from_string(t_Stack *a, char *input)
-{
-	char	*token;
-	int		i;
-	long	val;
-	char	*endptr;
-
-	i = 0;
-	token = strtok(input, " ");
-	while (token != NULL)
-	{
-		val = strtol(token, &endptr, 10);
-		if (*endptr != '\0')
-		{
-			fprintf(stderr, "Error: Invalid integer in input '%s'\n", token);
-			exit(EXIT_FAILURE);
-		}
-		a->nbr[i] = (int)val;
-		i++;
-		token = strtok(NULL, " ");
-	}
-	a->top = i - 1;
 }
 
 void	print_array(int *array, int size)
