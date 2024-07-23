@@ -22,6 +22,7 @@ void	sa(t_Stack *a)
 		a->nbr[a->top] = a->nbr[a->top - 1];
 		a->nbr[a->top - 1] = temp;
 	}
+	printf("sa\n");
 	a->full_move_count++;
 }
 
@@ -35,6 +36,7 @@ void	sb(t_Stack *b)
 		b->nbr[b->top] = b->nbr[b->top - 1];
 		b->nbr[b->top - 1] = temp;
 	}
+	printf("sb\n");
 	b->full_move_count++;
 }
 
