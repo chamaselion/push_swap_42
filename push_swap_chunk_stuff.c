@@ -73,7 +73,7 @@ void	estimate_optimal_chunks(t_Stack *a)
 	}
 	else if (lis_length > threshold && a->top > 99)
 	{
-		a->no_chunks = 10;
+		a->no_chunks = 12;
 		a->ind = 0;
 	}
 	else if (lis_length <= threshold && a->top > 99)
