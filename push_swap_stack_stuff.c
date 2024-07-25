@@ -6,41 +6,26 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:04:10 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/17 15:40:52 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:36:14 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	reverse_int_arr(t_Stack *a, int limit)
+void	fill_stack_from_str(t_Stack *a, char *str)
 {
-	int strg;
-	int c;
+	char	*token;
+	int		i;
 
-	c = 0;
-
-	while (c < limit / 2)
+	i = 0;
+	token = strtok(str, " ");
+	while (token != NULL)
 	{
-		strg = a->nbr[c];
-		a->nbr[c] = a->nbr[limit - c];
-		a->nbr[limit - c] = strg;
-		c++;
+		a->nbr[i] = atoi(token);
+		i++;
+		token = strtok(NULL, " ");
 	}
-}
-
-void fill_stack_from_str(t_Stack *a, char *str)
-{
-    char *token;
-    int i = 0;
-
-    token = strtok(str, " ");
-    while (token != NULL)
-    {
-        a->nbr[i] = atoi(token);
-        i++;
-        token = strtok(NULL, " ");
-    }
-    a->top = i - 1;
+	a->top = i - 1;
 	free(token);
 }
 
