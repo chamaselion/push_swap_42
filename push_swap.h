@@ -38,6 +38,8 @@ typedef struct Stack
 char *ft_strchr(const char *s, int c);
 char *ft_strtok_r(char *str, const char *delim, char **saveptr);
 char *ft_strtok(char *str, const char *delim);
+int ft_atoi(const char *str);
+int	ft_strlen(char *str);
 
 /* push_swap_movements */
 void	sa(t_Stack *a);
@@ -105,4 +107,4 @@ void	mini_sort_2(t_Stack *a);
 
 /* push_swap_utis */
 
-#endif
+# endif

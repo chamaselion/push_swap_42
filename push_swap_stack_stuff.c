@@ -21,7 +21,7 @@ void	fill_stack_from_str(t_Stack *a, char *str)
 	token = ft_strtok(str, " ");
 	while (token != NULL)
 	{
-		a->nbr[i] = atoi(token);
+		a->nbr[i] = ft_atoi(token);
 		i++;
 		token =ft_strtok(NULL, " ");
 	}
@@ -38,7 +38,7 @@ void	fill_stack(t_Stack *a, int argc, char **argv)
 		i = argc - 1;
 		while (i >= 1)
 		{
-			a->nbr[argc - i - 1] = atoi(argv[i]);
+			a->nbr[argc - i - 1] = ft_atoi(argv[i]);
 			i--;
 		}
 		a->top = argc - 2;
@@ -46,8 +46,8 @@ void	fill_stack(t_Stack *a, int argc, char **argv)
 	else if (argc == 2)
 	{
 		i = 0;
-		a->nbr[0] = atoi(argv[1]);
-		a->top = strlen(argv[1]);
+		a->nbr[0] = ft_atoi(argv[1]);
+		a->top = ft_strlen(argv[1]);
 	}
 }
 

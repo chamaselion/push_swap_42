@@ -78,7 +78,7 @@ void	check_pre_stack(int argc, char **argv)
 			write_error("Error\n");
 			exit(EXIT_FAILURE);
 		}
-		val = atoi(argv[i]);
+		val = ft_atoi(argv[i]);
 		if (is_value_duplicate(check_array, val, i - 1))
 		{
 			write_error("Error\n");
