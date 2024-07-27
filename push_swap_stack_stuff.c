@@ -18,12 +18,12 @@ void	fill_stack_from_str(t_Stack *a, char *str)
 	int		i;
 
 	i = 0;
-	token = strtok(str, " ");
+	token = ft_strtok(str, " ");
 	while (token != NULL)
 	{
 		a->nbr[i] = atoi(token);
 		i++;
-		token = strtok(NULL, " ");
+		token =ft_strtok(NULL, " ");
 	}
 	a->top = i - 1;
 	free(token);
