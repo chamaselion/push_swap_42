@@ -34,6 +34,11 @@ typedef struct Stack
 	int	ind;
 }		t_Stack;
 
+/* push_swap_basic_utis */
+char *ft_strchr(const char *s, int c);
+char *ft_strtok_r(char *str, const char *delim, char **saveptr);
+char *ft_strtok(char *str, const char *delim);
+
 /* push_swap_movements */
 void	sa(t_Stack *a);
 void	sb(t_Stack *b);
