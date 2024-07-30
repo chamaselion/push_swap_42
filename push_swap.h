@@ -6,20 +6,20 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:15:25 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 11:04:57 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:44:32 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include "ft_printf.h"
 # include <ctype.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <time.h>
 # include <unistd.h>
-# include "ft_printf.h"
 
 typedef struct Stack
 {
@@ -40,6 +40,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strtok_r(char *str, const char *delim, char **saveptr);
 char	*ft_strtok(char *str, const char *delim);
 int		ft_atoi(const char *str);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 
 /* push_swap_movements */
 void	sa(t_Stack *a);
@@ -59,6 +60,7 @@ int		is_value_duplicate(int *check_array, int val, int limit);
 void	check_pre_stack(int argc, char **argv);
 void	check_pre_stack_single(char *argv);
 int		is_it_duplicate_tho(int *array, int limit);
+int		check_int_range(char *str);
 
 /* push_swap_chunk_stuff */
 int		find_max_element(int arr[], int n);

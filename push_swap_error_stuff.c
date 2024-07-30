@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:02:07 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 11:04:44 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:45:39 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_pre_stack(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_integer(argv[i]))
+		if (!is_integer(argv[i]) || check_int_range(argv[i]) == 0)
 		{
 			write_error("Error\n");
 			exit(EXIT_FAILURE);
