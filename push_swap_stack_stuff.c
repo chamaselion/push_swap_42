@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:04:10 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/25 14:36:14 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:04:50 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	fill_stack_from_str(t_Stack *a, char *str)
 	{
 		a->nbr[i] = ft_atoi(token);
 		i++;
-		token =ft_strtok(NULL, " ");
+		token = ft_strtok(NULL, " ");
 	}
 	a->top = i - 1;
 	free(token);
@@ -56,17 +56,17 @@ void	print_array(int *array, int size)
 	int	i;
 
 	i = 0;
-	printf("[");
+	ft_printf("[");
 	while (i < size)
 	{
-		printf("%d", array[i]);
+		ft_printf("%d", array[i]);
 		if (i < size - 1)
 		{
-			printf(", ");
+			ft_printf(", ");
 		}
 		i++;
 	}
-	printf("]\n");
+	ft_printf("]\n");
 }
 
 int	*stack_to_array(t_Stack *a)

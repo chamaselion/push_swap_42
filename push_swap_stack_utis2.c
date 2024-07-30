@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:22:58 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/16 16:23:27 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:04:54 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	print_stack(t_Stack *a, char *name)
 	int	i;
 
 	i = a->top;
-	printf("%s: ", name);
+	ft_printf("%s: ", name);
 	while (i >= 0)
 	{
-		printf("%d ", a->nbr[i]);
+		ft_printf("%d ", a->nbr[i]);
 		i--;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 int	find_smallest(t_Stack *a)

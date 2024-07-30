@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:15:03 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/16 15:16:03 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:39:45 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sa(t_Stack *a)
 		a->nbr[a->top] = a->nbr[a->top - 1];
 		a->nbr[a->top - 1] = temp;
 	}
-	printf("sa\n");
+	ft_printf("sa\n");
 	a->full_move_count++;
 }
 
@@ -36,7 +36,7 @@ void	sb(t_Stack *b)
 		b->nbr[b->top] = b->nbr[b->top - 1];
 		b->nbr[b->top - 1] = temp;
 	}
-	printf("sb\n");
+	ft_printf("sb\n");
 	b->full_move_count++;
 }
 
@@ -57,7 +57,7 @@ void	ra(t_Stack *a)
 		i--;
 	}
 	a->nbr[0] = temp;
-	printf("ra\n");
+	ft_printf("ra\n");
 	a->full_move_count++;
 }
 
@@ -78,7 +78,7 @@ void	rb(t_Stack *b)
 		i--;
 	}
 	b->nbr[0] = temp;
-	printf("rb\n");
+	ft_printf("rb\n");
 	b->full_move_count++;
 }
 
@@ -88,6 +88,6 @@ void	pb(t_Stack *a, t_Stack *b)
 	{
 		b->nbr[++b->top] = a->nbr[a->top--];
 	}
-	printf("pb\n");
+	ft_printf("pb\n");
 	a->full_move_count++;
 }

@@ -6,19 +6,20 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:15:25 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/25 16:13:56 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:04:57 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <ctype.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <time.h>
 # include <unistd.h>
-# include <ctype.h>
+# include "ft_printf.h"
 
 typedef struct Stack
 {
@@ -35,11 +36,10 @@ typedef struct Stack
 }		t_Stack;
 
 /* push_swap_basic_utis */
-char *ft_strchr(const char *s, int c);
-char *ft_strtok_r(char *str, const char *delim, char **saveptr);
-char *ft_strtok(char *str, const char *delim);
-int ft_atoi(const char *str);
-int	ft_strlen(char *str);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strtok_r(char *str, const char *delim, char **saveptr);
+char	*ft_strtok(char *str, const char *delim);
+int		ft_atoi(const char *str);
 
 /* push_swap_movements */
 void	sa(t_Stack *a);
@@ -107,4 +107,4 @@ void	mini_sort_2(t_Stack *a);
 
 /* push_swap_utis */
 
-# endif
+#endif

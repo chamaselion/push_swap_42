@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:14:42 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/25 16:14:25 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:44:23 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	handle_single_arg(t_Stack *a, t_Stack *b, char *arg)
 	check_pre_stack_single(arg);
 	fill_stack_from_str(a, arg);
 	reverse_int_arr(a, a->top);
-	print_stack(a, "Filled");
 	if (is_it_duplicate_tho(a->nbr, a->top))
 	{
 		write_error("Error\n");
@@ -70,18 +69,13 @@ void	handle_multiple_args(t_Stack *a, t_Stack *b, int argc, char **argv)
 
 void	process_stacks(t_Stack *a, t_Stack *b)
 {
-	printf("issortedbefore:%i\n", is_sorted(a));
-	print_stack(a, "Beforesort");
 	if (is_sorted(a) == 1)
 	{
-		write_error("Errorsort\n");
+		write_error("Error\n");
 		exit(EXIT_FAILURE);
 	}
 	estimate_optimal_chunks(a);
-	printf("atop1:%i\n", a->top);
 	push_swap(a, b);
-	printf("atop2:%i\n", a->top);
-	print_stack(a, "Done");
 }
 
 int	main(int argc, char **argv)

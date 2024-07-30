@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:37:09 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/25 14:49:52 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:04:46 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ void	mini_sort_4(t_Stack *a, t_Stack *b)
 	{
 		i++;
 	}
-	printf("Smallest:%i\n", i);
 	smart_rotate(a, i);
 	pb(a, b);
 	mini_sort_3(a);
-	print_stack(a, "A");
-	print_stack(b, "B");
 	pa(a, b);
 }
 

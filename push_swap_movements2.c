@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap-movements2.c                             :+:      :+:    :+:   */
+/*   push_swap_movements2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:15:40 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/16 15:15:58 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:39:09 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pa(t_Stack *a, t_Stack *b)
 	{
 		a->nbr[++a->top] = b->nbr[b->top--];
 	}
-	printf("pa\n");
+	ft_printf("pa\n");
 	a->full_move_count++;
 }
 
@@ -39,7 +39,7 @@ void	rra(t_Stack *a)
 		i++;
 	}
 	a->nbr[a->top] = temp;
-	printf("rra\n");
+	ft_printf("rra\n");
 	a->full_move_count++;
 }
 
@@ -60,6 +60,6 @@ void	rrb(t_Stack *b)
 		i++;
 	}
 	b->nbr[b->top] = temp;
-	printf("rrb\n");
+	ft_printf("rrb\n");
 	b->full_move_count++;
 }
