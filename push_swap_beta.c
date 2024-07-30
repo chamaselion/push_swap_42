@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:14:42 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 12:44:23 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:04:40 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	handle_single_arg(t_Stack *a, t_Stack *b, char *arg)
 	if (is_it_duplicate_tho(a->nbr, a->top))
 	{
 		write_error("Error\n");
+		cleanup(a, b);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -69,10 +70,10 @@ void	handle_multiple_args(t_Stack *a, t_Stack *b, int argc, char **argv)
 
 void	process_stacks(t_Stack *a, t_Stack *b)
 {
-	if (is_sorted(a) == 1)
+	if (is_sorted(a))
 	{
-		write_error("Error\n");
-		exit(EXIT_FAILURE);
+		cleanup(a, b);
+		return ;
 	}
 	estimate_optimal_chunks(a);
 	push_swap(a, b);

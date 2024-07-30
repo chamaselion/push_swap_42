@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:30:36 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 13:51:24 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:02:24 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,21 @@ void	check_pre_stack_single(char *argv)
 			exit(EXIT_FAILURE);
 		}
 		c++;
+	}
+}
+
+void	cleanup(t_Stack *a, t_Stack *b)
+{
+	free(a->nbr);
+	free(a->current_mid);
+	if (a->ar)
+	{
+		free(a->ar);
+	}
+	free(b->nbr);
+	free(b->current_mid);
+	if (b->ar)
+	{
+		free(b->ar);
 	}
 }
