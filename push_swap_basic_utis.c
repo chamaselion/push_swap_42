@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 10:38:57 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 13:44:15 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:44:05 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strtok_r(char *str, const char *delim, char **saveptr)
 
 	if (str == NULL)
 		str = *saveptr;
-	while (*str && strchr(delim, *str))
+	while (*str && ft_strchr(delim, *str))
 		str++;
 	if (*str == '\0')
 	{
@@ -43,7 +43,7 @@ char	*ft_strtok_r(char *str, const char *delim, char **saveptr)
 		return (NULL);
 	}
 	end = str;
-	while (*end && !strchr(delim, *end))
+	while (*end && !ft_strchr(delim, *end))
 		end++;
 	if (*end == '\0')
 	{

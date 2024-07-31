@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:19:24 by bszikora          #+#    #+#             */
-/*   Updated: 2024/03/29 14:39:22 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:50:13 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				handle_string(t_data_t *data);
 void				handle_pointer(t_data_t *data);
 void				handle_int(t_data_t *data);
 void				handle_uint(t_data_t *data);
-int					ft_putnbr_base(unsigned long int nbr, char *base);
+int					ft_putnbr_base(uintptr_t nbr, char *base);
 int					ft_putnbr(int nb);
 int					ft_putstr(char *str);
 int					ft_putchar(char c);
