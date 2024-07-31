@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:03:14 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 14:15:47 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:06:44 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,22 @@ void	estimate_optimal_chunks(t_Stack *a)
 	threshold = 0.2 * a->top;
 	if (lis_length > threshold && a->top <= 99)
 	{
-		a->no_chunks = 5;
+		a->no_chunks = 4;
 		a->ind = 1;
 	}
 	else if (lis_length <= threshold && a->top <= 99)
 	{
-		a->no_chunks = 4;
+		a->no_chunks = 5;
 		a->ind = 1;
 	}
 	else if (lis_length > threshold && a->top > 99)
 	{
-		a->no_chunks = 12;
+		a->no_chunks = 10;
 		a->ind = 1;
 	}
 	else if (lis_length <= threshold && a->top > 99)
 	{
-		a->no_chunks = 10;
+		a->no_chunks = 12;
 		a->ind = 1;
 	}
 }
