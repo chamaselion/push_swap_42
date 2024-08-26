@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:04:10 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 11:04:50 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:47:53 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	*stack_to_array(t_Stack *a)
 	int	i;
 
 	array = malloc(sizeof(int) * (a->top + 1));
+	if (!array)
+		return (NULL);
 	i = 0;
 	while (i <= a->top)
 	{

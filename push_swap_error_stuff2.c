@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:30:36 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 14:02:24 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:02:15 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	check_int_range_single(const char *argv)
 	free(input_copy);
 }
 
-void	check_pre_stack_single(char *argv)
+void	check_pre_stack_single(char *argv, t_Stack *a, t_Stack *b)
 {
 	int	c;
 
@@ -101,6 +101,7 @@ void	check_pre_stack_single(char *argv)
 	if (argv[0] == '\0')
 	{
 		write_error("Error\n");
+		cleanup(a, b);
 		exit(EXIT_FAILURE);
 	}
 	while (argv[c] != '\0')
@@ -109,6 +110,7 @@ void	check_pre_stack_single(char *argv)
 				|| argv[c] == '\t' || argv[c] == '-'))
 		{
 			write_error("Error\n");
+			cleanup(a, b);
 			exit(EXIT_FAILURE);
 		}
 		c++;
@@ -117,16 +119,29 @@ void	check_pre_stack_single(char *argv)
 
 void	cleanup(t_Stack *a, t_Stack *b)
 {
-	free(a->nbr);
-	free(a->current_mid);
+	if (a->nbr)
+	{
+		free(a->nbr);
+		a->nbr = NULL;
+	}
+	if (a->current_mid)
+	{
+		free(a->current_mid);
+		a->current_mid = NULL;
+	}
 	if (a->ar)
 	{
 		free(a->ar);
+		a->ar = NULL;
 	}
-	free(b->nbr);
-	free(b->current_mid);
-	if (b->ar)
+	if (b->nbr)
 	{
-		free(b->ar);
+		free(b->nbr);
+		b->nbr = NULL;
+	}
+	if (b->current_mid)
+	{
+		free(b->current_mid);
+		b->current_mid = NULL;
 	}
 }

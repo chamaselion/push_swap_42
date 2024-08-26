@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:03:14 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/31 14:06:44 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:58:47 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	find_max_element(int arr[], int n)
 			max = arr[i];
 		i++;
 	}
+	free(arr);
 	return (max);
 }
 

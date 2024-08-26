@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:15:25 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 14:04:00 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:04:17 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,12 @@ void	write_error(char *str);
 int		is_digit(char c);
 int		is_integer(char *str);
 int		is_value_duplicate(int *check_array, int val, int limit);
-void	check_pre_stack(int argc, char **argv);
-void	check_pre_stack_single(char *argv);
+void	check_pre_stack(int argc, char **argv, t_Stack *a, t_Stack *b);
+void	check_pre_stack_single(char *argv, t_Stack *a, t_Stack *b);
 int		is_it_duplicate_tho(int *array, int limit);
 int		check_int_range(char *str);
 void	cleanup(t_Stack *a, t_Stack *b);
+void	error_call(t_Stack *a, t_Stack *b);
 
 /* push_swap_chunk_stuff */
 int		find_max_element(int arr[], int n);

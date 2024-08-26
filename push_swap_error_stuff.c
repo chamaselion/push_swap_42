@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:02:07 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 13:45:39 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:00:13 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,28 @@ int	is_value_duplicate(int *check_array, int val, int limit)
 	return (0);
 }
 
-void	check_pre_stack(int argc, char **argv)
+void	check_pre_stack(int argc, char **argv, t_Stack *a, t_Stack *b)
 {
 	int	*check_array;
 	int	i;
 	int	val;
 
 	check_array = malloc((argc - 1) * sizeof(int));
+	if (!check_array)
+		return ;
 	i = 1;
 	while (i < argc)
 	{
 		if (!is_integer(argv[i]) || check_int_range(argv[i]) == 0)
 		{
-			write_error("Error\n");
-			exit(EXIT_FAILURE);
+			free(check_array);
+			error_call(a, b);
 		}
 		val = ft_atoi(argv[i]);
 		if (is_value_duplicate(check_array, val, i - 1))
 		{
-			write_error("Error\n");
-			exit(EXIT_FAILURE);
+			free(check_array);
+			error_call(a, b);
 		}
 		check_array[i - 1] = val;
 		i++;

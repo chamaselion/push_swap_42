@@ -1,8 +1,9 @@
 NAME = push_swap
 CC = cc
 CFLAGS =	-Wall -Wextra -Werror -I$(FT_PRINTF_DIR)
-SRC = push_swap_beta.c push_swap_chunk_stuff.c push_swap_error_stuff.c push_swap_error_stuff2.c push_swap_movements.c push_swap_movements2.c push_swap_stack_stuff.c push_swap_stack_stuff2.c push_swap_stack_utis.c sort_hundred.c push_swap_stack_utis2.c push_swap_stack_utis3.c push_swap_mini_sort.c push_swap_basic_utis.c
-OBJ = $(SRC:.c=.o)
+SRC = push_swap_beta.c push_swap_chunk_stuff.c push_swap_error_stuff.c push_swap_error_stuff2.c push_swap_movements.c push_swap_movements2.c push_swap_stack_stuff.c push_swap_stack_stuff2.c push_swap_stack_utis.c sort_hundred.c push_swap_stack_utis2.c push_swap_stack_utis3.c push_swap_mini_sort.c push_swap_basic_utis.c push_swap_error_stuff3.c push_swap_stack_stuff3.c
+OBJDIR = obj/
+OBJ = $(SRC:%.c=$(OBJDIR)%.o)
 FT_PRINTF_DIR = ./ft_printf
 FT_PRINTF_LIB = $(FT_PRINTF_DIR)/ft_printf.a
 
@@ -11,8 +12,10 @@ all:	ft_printf	$(NAME)
 $(NAME):	$(OBJ)
 	@$(CC)	$(CFLAGS)	-o	$@	$^	-L$(FT_PRINTF_DIR)	-lftprintf
 
-%.o:	%.c
+$(OBJDIR)%.o:	%.c | $(OBJDIR)
 	@$(CC)	$(CFLAGS)	-c	$<	-o	$@
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
 
 ft_printf:
 	@$(MAKE)	-C	$(FT_PRINTF_DIR)

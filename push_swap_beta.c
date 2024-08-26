@@ -6,7 +6,7 @@
 /*   By: bszikora <bszikora@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:14:42 by bszikora          #+#    #+#             */
-/*   Updated: 2024/07/30 14:04:40 by bszikora         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:55:34 by bszikora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	push_swap(t_Stack *a, t_Stack *b)
 {
 	if (a->top == 1)
-	{
 		mini_sort_2(a);
-	}
 	else if (a->top == 2)
 	{
 		mini_sort_3(a);
@@ -38,6 +36,7 @@ void	push_swap(t_Stack *a, t_Stack *b)
 		handle_remaining_stack(a, b);
 		sort_b_to_a(a, b);
 		free(a->ar);
+		a->ar = NULL;
 	}
 }
 
@@ -47,15 +46,9 @@ void	handle_single_arg(t_Stack *a, t_Stack *b, char *arg)
 
 	count = count_integer_in_str(arg);
 	initialize_stack_a_b(a, b, (count));
-	check_pre_stack_single(arg);
+	check_pre_stack_single(arg, a, b);
 	fill_stack_from_str(a, arg);
 	reverse_int_arr(a, a->top);
-	if (is_it_duplicate_tho(a->nbr, a->top))
-	{
-		write_error("Error\n");
-		cleanup(a, b);
-		exit(EXIT_FAILURE);
-	}
 }
 
 void	handle_multiple_args(t_Stack *a, t_Stack *b, int argc, char **argv)
@@ -64,7 +57,7 @@ void	handle_multiple_args(t_Stack *a, t_Stack *b, int argc, char **argv)
 
 	count = argc;
 	initialize_stack_a_b(a, b, count);
-	check_pre_stack(argc, argv);
+	check_pre_stack(argc, argv, a, b);
 	fill_stack(a, argc, argv);
 }
 
@@ -97,4 +90,6 @@ int	main(int argc, char **argv)
 		handle_multiple_args(&a, &b, argc, argv);
 	}
 	process_stacks(&a, &b);
+	cleanup(&a, &b);
+	return (0);
 }
